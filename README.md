@@ -35,8 +35,8 @@ web_scanner_ghost adalah toolkit Python untuk pengujian keamanan web: reconnaiss
 
 ## 📥 Cara Clone
 ```bash
-git clone https://github.com/USERNAME/REPO.git
-cd REPO
+git clone https://github.com/Sneijderlino/web_Scanner_Ghost.git
+cd web_Scanner_Ghost
 ```
 
 ## instalasi kali linux
