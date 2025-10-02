@@ -1,0 +1,17 @@
+# Python cache and environment
+_pycache_/
+*.pyc
+.env
+.venv/
+venv/
+env/
+
+# Output & logs
+output/
+pentest_output/
+*.log
+*.tmp
+
+# OS
+.DS_Store
+Thumbs.db

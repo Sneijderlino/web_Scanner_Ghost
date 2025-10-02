@@ -1,0 +1,7 @@
+requests
+beautifulsoup4
+dnspython
+rich
+colorama
+pyfiglet
+jinja2
