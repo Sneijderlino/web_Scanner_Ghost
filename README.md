@@ -59,8 +59,8 @@ pip install -r requirements.txt
 ```bash
 pkg update && pkg upgrade -y
 pkg install -y python git
-git clone https://github.com/USERNAME/REPO.git
-cd REPO
+git https://github.com/Sneijderlino/web_Scanner_Ghost.git
+cd web_Scanner_Ghost
 pip install --upgrade pip
 pip install -r requirements.txt
 ```
