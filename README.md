@@ -84,4 +84,4 @@ python3 src/pentest.py --target https://example.com --confirm
 <p align="center">
   <img src="/img/Demo_hasil_scanning.png" alt="Contoh output web_scanner_ghost" width="800"/><br>
   <em>Demo Hasil scanning web 
-</p># web_Scanner_Ghost
+</p>
