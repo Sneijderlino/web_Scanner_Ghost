@@ -66,7 +66,7 @@ pip install -r requirements.txt
 ```
 ### Cara Menjalankan
 ```bash
-python3 src/pentest.py --target https://example.com --confirm
+sudo python3 Web_Scanner_Ghost.py
 ```
 
 ## 🖼 Demo / Contoh Output
