@@ -11,6 +11,12 @@
 </p>
 
 ---
+<p align="center">
+  <img src="/img/Banner.png" alt="Contoh output web_scanner_ghost" width="800"/>
+</p>
+
+
+
 
 ## 🔎 Ringkasan
 web_scanner_ghost adalah toolkit Python untuk pengujian keamanan web: reconnaissance, directory enumeration, subdomain check, pemeriksaan header keamanan, CORS, open-redirect, SQLi/XSS/LFI probes, port scan, SSL info, cookie flags, rate-limit dan CSRF checks. Hasil dapat diekspor ke Markdown / JSON / HTML.
