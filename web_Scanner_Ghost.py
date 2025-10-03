@@ -829,12 +829,10 @@ def summarize_attacks(findings: List[Finding]) -> List[str]:
 
 # --------- Main ----------
 def main():
-    # ======== NEW: Clear & Banner ========
     clear_screen()
     banner_anonymous()
     spooky_loading()
 
-    # Banner (opsional) memakai rich jika ada (tidak mengubah logika)
     if Console and Panel:
         banner = Panel.fit(
             "[bold green]WEB PENTEST TOOL (ALL ACTIVE)\n[/bold green][bold red]Tools by ghost_root[/bold red]",
@@ -855,7 +853,6 @@ def main():
     ap.add_argument("--time-sqli", action="store_true", help="Aktifkan time-based SQLi probes (default: aktif)")
     args = ap.parse_args()
 
-    # Input manual jika --target tidak diisi
     if not args.target:
         target = input(Fore.CYAN + "Masukkan target web (contoh: https://example.com): " + Style.RESET_ALL).strip()
     else:
@@ -867,7 +864,7 @@ def main():
     if not target.startswith("http"):
         target = "http://" + target
 
-    # Konfirmasi izin
+
     if not args.confirm:
         print(Fore.YELLOW + "[!] Pastikan Anda memiliki izin untuk menguji target ini.")
         yn = input(Fore.CYAN + "Ketik 'ya' untuk konfirmasi lalu lanjutkan, atau lainnya untuk batal: " + Style.RESET_ALL).strip().lower()
@@ -880,7 +877,6 @@ def main():
     started = datetime.utcnow().isoformat() + "Z"
     findings: List[Finding] = []
 
-    # Total langkah untuk progress (sinkron dengan urutan di bawah)
     steps = [
         "Recon",
         "Subdomain",
@@ -925,7 +921,7 @@ def main():
         print(Fore.YELLOW + "    [!] Opsi --no-subdomain diaktifkan; lewati subdomain")
     step_progress(step_index, len(steps)); step_index += 1
 
-    # Direktori & file sensitif
+
     print(Fore.CYAN + "[*] Memindai direktori & file sensitif...")
     findings += module_dirs(target, DEFAULT_DIRS + SENSITIVE_FILES, threads=args.threads, timeout=args.timeout)
     step_progress(step_index, len(steps)); step_index += 1
@@ -934,7 +930,7 @@ def main():
     print(Fore.CYAN + "[*] Memeriksa header keamanan...")
     hdr_findings, header_score = module_headers(target)
     findings += hdr_findings
-    # Indikasi aman/waspada
+
     if header_score >= 80:
         print(Fore.GREEN + f"    [+] Skor header: {header_score}% (Aman)")
     elif header_score >= 50:
@@ -943,23 +939,23 @@ def main():
         print(Fore.RED + f"    [!] Skor header: {header_score}% (Berbahaya)")
     step_progress(step_index, len(steps)); step_index += 1
 
-    # CORS
+
     print(Fore.CYAN + "[*] Memeriksa CORS...")
     findings += module_cors(target)
     step_progress(step_index, len(steps)); step_index += 1
 
-    # Open redirect
+
     print(Fore.CYAN + "[*] Memeriksa open redirect...")
     findings += module_open_redirect(target)
     step_progress(step_index, len(steps)); step_index += 1
 
-    # SQLi
+
     print(Fore.CYAN + "[*] Menguji SQL Injection (error/boolean/time-based)...")
     findings += module_sqli(
         target,
         timeout=args.timeout,
-        boolean_probe=True,   # aktif
-        time_probe=True       # aktif
+        boolean_probe=True,
+        time_probe=True   
     )
     step_progress(step_index, len(steps)); step_index += 1
 
@@ -968,33 +964,33 @@ def main():
     findings += module_xss(target, timeout=args.timeout)
     step_progress(step_index, len(steps)); step_index += 1
 
-    # LFI
+
     print(Fore.CYAN + "[*] Menguji LFI...")
     findings += module_lfi(target, timeout=args.timeout)
     step_progress(step_index, len(steps)); step_index += 1
 
-    # Port scan
+
     print(Fore.CYAN + "[*] Memindai port (threaded)...")
     ports = parse_ports(args.ports)
     findings += module_portscan(get_domain(target), ports, threads=args.threads)
     step_progress(step_index, len(steps)); step_index += 1
 
-    # SSL
+
     print(Fore.CYAN + "[*] Mengambil info SSL/TLS...")
     findings += module_ssl(get_domain(target))
     step_progress(step_index, len(steps)); step_index += 1
 
-    # Cookie flags
+
     print(Fore.CYAN + "[*] Memeriksa cookie flags...")
     findings += module_cookie_flags(target)
     step_progress(step_index, len(steps)); step_index += 1
 
-    # Rate limit
+
     print(Fore.CYAN + "[*] Memeriksa rate limit sederhana...")
     findings += module_ratelimit(target)
     step_progress(step_index, len(steps)); step_index += 1
 
-    # CSRF
+
     print(Fore.CYAN + "[*] Memeriksa CSRF (form POST tanpa token)...")
     findings += module_csrf(target)
     step_progress(step_index, len(steps)); step_index += 1
