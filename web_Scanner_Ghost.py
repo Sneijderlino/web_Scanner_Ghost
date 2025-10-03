@@ -1,5 +1,4 @@
 from __future__ import annotations
-
 import argparse
 import concurrent.futures
 import json
@@ -16,7 +15,7 @@ from urllib.parse import (
     urlparse, urlsplit, urlunsplit, parse_qs, urlencode, urljoin
 )
 
-# ======== NEW: Visual libs (safe fallbacks) ========
+
 try:
     from colorama import init as colorama_init, Fore, Style
     colorama_init(autoreset=True)

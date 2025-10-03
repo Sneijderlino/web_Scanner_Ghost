@@ -1,4 +1,4 @@
-# Python cache and environment
+
 _pycache_/
 *.pyc
 .env
@@ -6,12 +6,12 @@ _pycache_/
 venv/
 env/
 
-# Output & logs
+
 output/
 pentest_output/
 *.log
 *.tmp
 
-# OS
+
 .DS_Store
 Thumbs.db
