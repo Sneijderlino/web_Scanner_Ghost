@@ -43,22 +43,22 @@ except Exception:
 try:
     from pyfiglet import figlet_format
 except Exception:
-    def figlet_format(text, font="standard"):  # fallback sederhana
+    def figlet_format(text, font="standard"):  
         return f"{text}\n"
 
-# --------- Optional/3rd party ----------
+
 try:
     import requests
-    from bs4 import BeautifulSoup  # type: ignore
+    from bs4 import BeautifulSoup  
 except ImportError:
     print("[!] Missing dependency: requests & beautifulsoup4 required.")
     print("    pip install requests beautifulsoup4")
     sys.exit(1)
 
 try:
-    import dns.resolver  # type: ignore
+    import dns.resolver
 except Exception:
-    dns = None  # type: ignore
+    dns = None  
 
 try:
     from rich.console import Console
@@ -76,11 +76,11 @@ except Exception:
     box = None
 
 try:
-    from jinja2 import Template  # type: ignore
+    from jinja2 import Template 
 except Exception:
     Template = None
 
-# --------- Konfigurasi ----------
+
 SESSION = requests.Session()
 SESSION.headers.update({
     "User-Agent": "Mozilla/5.0 (compatible; WebPentestAllActive/1.0)"
@@ -102,7 +102,7 @@ ADMIN_PANELS = ["/admin/", "/administrator/", "/cpanel/", "/phpmyadmin/", "/wp-a
 
 OPEN_REDIRECT_KEYS = ["next", "url", "return", "redirect", "dest", "destination", "continue", "goto"]
 
-# Pastikan semua payload berupa string Python valid (tidak ada kutip pintar)
+
 SQLI_PAYLOADS = [
     "' OR '1'='1",
     "\" OR \"1\"=\"1",
@@ -235,7 +235,7 @@ def step_progress(step_idx: int, total_steps: int, animate: bool = True):
     draw_progress(target)
     print()
 
-# --------- Utilitas ----------
+
 def normalize(u: str) -> str:
     u = u.strip()
     if not re.match(r"^https?://", u):
@@ -307,7 +307,7 @@ def similarity(a: str, b: str) -> float:
         return 0.0
     return difflib.SequenceMatcher(None, a, b).ratio()
 
-# --------- Modul ----------
+
 def detect_waf_cdn(headers: Dict[str, str]) -> List[str]:
     out: List[str] = []
     hlower = "\n".join([f"{k.lower()}: {str(v).lower()}" for k, v in headers.items()])
@@ -499,7 +499,7 @@ def module_sqli(target: str, timeout: int = 8, boolean_probe: bool = True, time_
                 out.append(Finding(category="SQLi", title=f"Anomali ukuran respon pada {k}", detail="Perubahan ukuran respon signifikan", severity="Medium", url=test_url))
                 break
 
-        # Boolean-based
+        
         if boolean_probe:
             mod_true = {kk: list(vv) for kk, vv in params.items()}
             mod_false = {kk: list(vv) for kk, vv in params.items()}
@@ -514,7 +514,7 @@ def module_sqli(target: str, timeout: int = 8, boolean_probe: bool = True, time_
                 if s < 0.9:
                     out.append(Finding(category="SQLi", title=f"Kemungkinan SQLi (boolean) pada {k}", detail="Respon berbeda untuk payload true/false", severity="High", url=url_true))
 
-        # Time-based (hati-hati)
+        
         if time_probe:
             probe_sleep = 4
             payload_time = "' OR IF(1=1,SLEEP(%d),0) -- " % probe_sleep
@@ -626,7 +626,7 @@ def module_cookie_flags(target: str) -> List[Finding]:
     sc = r.headers.get("Set-Cookie", "")
     if not sc:
         return out
-    # Catatan: parsing Set-Cookie multi-line bisa tricky; ini hanya heuristik sederhana.
+    
     items = [sc]
     for raw in items:
         name = raw.split(";", 1)[0].split("=", 1)[0].strip()
@@ -672,7 +672,7 @@ def module_csrf(target: str) -> List[Finding]:
         pass
     return out
 
-# --------- Reporting (NO TABLES) ----------
+
 def render_md(report: Report) -> str:
     md: List[str] = []
     md.append("# Laporan Pengujian Keamanan Web\n\n")
@@ -792,7 +792,7 @@ def compute_risk_percent(findings: List[Finding]) -> int:
     return percent
 
 def print_report_terminal(report: Report):
-    # Cetak markdown apa adanya (tidak mengubah logika)
+    
     md_content = render_md(report)
     if Console and Markdown:
         console = Console()
