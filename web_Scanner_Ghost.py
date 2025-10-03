@@ -1,12 +1,3 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
-"""
-Web Pentest Tool - All-active, deep (Bahasa Indonesia)
-Gunakan hanya pada target yang Anda miliki izin eksplisit.
-
-Dependencies (recommended):
-    pip install requests beautifulsoup4 dnspython rich jinja2 colorama pyfiglet
-"""
 from __future__ import annotations
 
 import argparse
